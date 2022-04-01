@@ -1,0 +1,58 @@
+<mat-card> <!--Kontejner ili kartica sadrzaja za tekst, fotografije i radnje u kontekstu jedne teme -->
+  <mat-card-title>{{'Search a course'}}</mat-card-title> <!--Naslov kartice (postoje jos dodatne sekscije koje idu unutar <mat-card>)-->
+  <from [formGroup]='courseForm'>
+    <div fxLayout="column"> <!--fxLayout - definise kako ce se podaci(polja, labele, cb, itd) redjati, da li u redovima (row) ili kolonama (column)-->
+      <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'> <!--fxLayoutGap - kreiranje rasporeda nalik mrezi; fxFlex - odredjuje koliko ce glavna osa biti ispunjena (u ovom primeru je cela strana)-->
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard"> <!--<mat-form-field> - komponenta koja se koristi za grupsianje vise tekstualinih polja (kao sto je ovde primer, input polje, labela za to polje i error poruka); class="col-sm-4" - deo strane, 12 na kraju znaci da obuhvata celu stranu; appearance - izgled ovog polja (ima ih vise, ovde se koristi standrad) -->
+          <mat-label>Code</mat-label> <!--Labela za input polje-->
+          <input matInput formControlName='code'> <!--Input polje-->
+          <!-- <mat-error>Field is required</mat-error> Error poruka, ako se ne unese nista u input polje-->
+        </mat-form-field>
+        <mat-form-field fxFlex='50' appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName='name'>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout='row' fxLayoutAlign='end' fxLayoutGap='15px'>
+      <button mat-raised-button color='warn' type="button"
+          *ngIf='
+          (courseForm.controls.code.value || courseForm.controls.name.value)'(click)='cancel()'>
+          Clear filter <mat-icon style="font-size: 20px;">clear</mat-icon>
+      </button> <!--mat-raised-button color='warn' - oblik i boja dugmeta (Angular material);  (click)='cancel()' - metoda iz course.component.ts da zatvori dijalog-->
+      <button mat-raised-button color='primary' type="submit" (debounceClick)='submit()' DebounceClick [debounceTime]='250'>Search
+        <mat-icon style="font-size: 20px;">search</mat-icon>
+      </button>
+    </div>
+  </from>
+</mat-card>
+
+
+
+<!--<div fxFlex=100 fxLayoutAlign='center center'>
+  <div fxFlex='80'>
+
+<table mat-table class="lessons-table mat-elevation-z8" [dataSource]="courses" style="width: 100%;">
+
+<ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="code">
+  <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+  <mat-cell class="description-cell" *matCellDef="let element">{{element.code}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="name">
+  <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+  <mat-cell class="duration-cell" *matCellDef="let element">{{element.name}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="points">
+  <mat-header-cell *matHeaderCellDef>Points</mat-header-cell>
+  <mat-cell class="duration-cell" *matCellDef="let element">{{element.points}}</mat-cell>
+</ng-container>
+
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</table>
+</div>
+</div> -->

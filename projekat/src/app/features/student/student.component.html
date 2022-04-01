@@ -1,0 +1,77 @@
+<mat-card>
+  <mat-card-title>{{'Search a student'}}</mat-card-title>
+  <form [formGroup]='studentForm'>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Index</mat-label>
+          <input matInput formControlName='index' PinInput>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName='name'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Surname</mat-label>
+          <input matInput formControlName='surname'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout='row' fxLayoutAlign='end' fxLayoutGap='15px'>
+      <button mat-raised-button color='warn' type="button"
+        *ngIf='
+        (studentForm.controls.name.value || studentForm.controls.surname.value || studentForm.controls.index.value)' (click)='cancel()'>
+        Clear filter <mat-icon style="font-size: 20px;">clear</mat-icon>
+      </button>
+      <button mat-raised-button color='primary' type="submit" (debounceClick)='submit()' DebounceClick [debounceTime]='250'>
+        {{'Search'}} <mat-icon style="font-size: 20px;">search</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+<!--<div fxFlex=100 fxLayoutAlign='center center'>
+  <div fxFlex='80'>
+
+    <table mat-table class="lessons-table mat-elevation-z8" [dataSource]="students" style="width: 100%;">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="index">
+      <mat-header-cell *matHeaderCellDef>Index</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.index}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef>Surname</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.surname}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dateOfEntry">
+      <mat-header-cell *matHeaderCellDef>Date of entry</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.dateOfEntry | date: 'dd.MM.yyyy'}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dateOfBirth">
+      <mat-header-cell *matHeaderCellDef>Date of birth</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.dateOfBirth | date: 'dd.MM.yyyy'}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="placeOfBirth">
+      <mat-header-cell *matHeaderCellDef>Place of birth</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.placeOfBirth}}</mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    </table>
+
+  </div>
+</div> -->

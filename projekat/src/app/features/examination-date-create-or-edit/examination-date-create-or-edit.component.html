@@ -1,0 +1,33 @@
+
+<mat-card>
+  <mat-card-title>{{data.id > 0 ? 'Edit data for a examination date!':'Create a examination date'}}</mat-card-title>
+  <form [formGroup]='exDateForm'>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Year</mat-label>
+          <input matInput formControlName='year' [required]='true' PinInput>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Mark</mat-label>
+          <input matInput formControlName='mark' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName='name' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout='row' fxLayoutAlign='end' fxLayoutGap='15px'>
+      <button mat-raised-button color='warn' (click)='cancel()' type="button">Cancel</button>
+      <button mat-raised-button color='primary' type="submit" (debounceClick)='submit()' DebounceClick [debounceTime]='250'>Submit
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+
+

@@ -1,0 +1,66 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { StudentCreateOrEditComponent } from './../student-create-or-edit/student-create-or-edit.component';
+import { first, debounceTime } from 'rxjs/operators';
+import { StudentService } from './../../services/student.service';
+import { Student } from './../models/student';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { StudentComponent } from '../student/student.component';
+
+@Component({
+  selector: 'app-student-search',
+  templateUrl: './student-search.component.html',
+  styleUrls: ['./student-search.component.scss']
+})
+export class StudentSearchComponent implements OnInit {
+
+  students: Student[] = [];
+
+  displayedColumns = ["id", "index", "name", "surname", "dateOfEntry", "dateOfBirth", "placeOfBirth", "dateCreated", "dateModified", "actions"];
+  totalElements: number = 0;
+  showLoader: boolean = false;
+
+  constructor(
+    private studentService: StudentService,
+    private matDialog: MatDialog,
+    private matSnack: MatSnackBar) { }
+
+  async ngOnInit() {
+    this.studentService.getallStudents().pipe(first()).subscribe(result => {
+      if (result) {
+        this.students = result;
+      }
+    });
+  }
+
+  search(parameters: Student | null) {
+    this.showLoader = true;
+    this.studentService.searchStudent(parameters).pipe(first(),debounceTime(2000)).subscribe(
+      result => {
+        if (result) {
+          this.students = result;
+          this.totalElements = result.length;
+          this.showLoader = false;
+        }
+      });
+  }
+
+  openDetails(id: number) {
+    this.matDialog.open(StudentCreateOrEditComponent, {data: {id: id} }).afterClosed().pipe().subscribe(x => {
+      if (x) this.search(null);
+    })
+  }
+
+  deleteItem(id: number) {
+    this.studentService.deleteStudent(id).pipe(first()).subscribe(x => {
+      if (x === true) {
+        this.matSnack.open("Succesfully deleted!", "Notification", { duration: 4000, panelClass: ['successSnack'] })
+        this.search(null);
+      } else {
+        this.matSnack.open("Error occured!", 'Error', { duration: 4000, panelClass: ['errorSnack'] })
+      }
+    });
+  }
+
+  //VIDETI KAKO UBACITI U PADAJUCOJ LISTI IME PREZIME - PREDMET
+}

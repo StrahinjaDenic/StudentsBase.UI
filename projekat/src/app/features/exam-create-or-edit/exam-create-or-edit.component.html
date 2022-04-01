@@ -1,0 +1,88 @@
+
+<mat-card>
+  <mat-card-title>{{data.id > 0 ? 'Edit data for a exam':'Create a exam'}}</mat-card-title>
+  <form [formGroup]='examForm'>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'>
+        <mat-form-field appearance="standard">
+          <mat-label>Index</mat-label>
+          <mat-select formControlName="studentId">
+            <mat-option *ngFor="let student of students" [value]="student.id">{{student.index}}</mat-option>
+          </mat-select>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Course name</mat-label>
+          <mat-select formControlName="courseId">
+            <mat-option *ngFor="let course of courses" [value]="course.id">{{course.name}}</mat-option>
+          </mat-select>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Year</mat-label>
+          <mat-select formControlName="examinationDateId">
+            <mat-option *ngFor="let examinationDate of examinationDates" [value]="examinationDate.id">{{examinationDate.year}}</mat-option>
+          </mat-select>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+          <mat-label>Mark</mat-label>
+          <mat-select formControlName="examinationDateId">
+            <mat-option *ngFor="let examinationDate of examinationDates" [value]="examinationDate.id">{{examinationDate.mark}}</mat-option>
+          </mat-select>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <!--<mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Student Id</mat-label>
+          <input matInput formControlName='studentId' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Course name</mat-label>
+          <input matInput formControlName='courseName' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Year</mat-label>
+          <input matInput formControlName='year' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Mark</mat-label>
+          <input matInput formControlName='mark' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>-->
+      </div>
+        <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'>
+          <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+            <mat-label>Grade</mat-label>
+            <input matInput formControlName='grade' [required]='true'>
+            <mat-error>Field is required</mat-error>
+          </mat-form-field>
+          <!-- <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+            <mat-label>Exam date</mat-label>
+            <input matInput formControlName='examDate' [required]='true'>
+            <mat-error>Field is required</mat-error>
+          </mat-form-field> -->
+          <mat-form-field appearance="standard">
+            <mat-label>Exam date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName='examDate' readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error>Field is required</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+            <mat-label>Points</mat-label>
+            <input matInput formControlName='points' [required]='true'>
+            <mat-error>Field is required</mat-error>
+          </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout='row' fxLayoutAlign='end' fxLayoutGap='15px'>
+      <button mat-raised-button color='warn' (click)='cancel()' type="button">Cancel</button>
+      <button mat-raised-button color='primary' type="submit" (debounceClick)='submit()' DebounceClick [debounceTime]='250'>Submit
+      </button>
+    </div>
+  </form>
+</mat-card>
+

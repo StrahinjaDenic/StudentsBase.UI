@@ -1,0 +1,57 @@
+
+<mat-card>
+  <mat-card-title>{{'Search a professor'}}</mat-card-title>
+  <form [formGroup]='professorForm'>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName='name'>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Surname</mat-label>
+          <input matInput formControlName='surname'>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout='row' fxLayoutAlign='end' fxLayoutGap='15px'>
+      <button mat-raised-button color='warn' type="button"
+        *ngIf='
+        (professorForm.controls.name.value || professorForm.controls.surname.value)' (click)='cancel()'>
+        Clear filter <mat-icon style="font-size: 20px;">clear</mat-icon>
+      </button>
+      <button mat-raised-button color='primary' type="submit" (debounceClick)='submit()' DebounceClick [debounceTime]='250'>Search
+         <mat-icon style="font-size: 20px;">search</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-card>
+<!--<div fxFlex=100 fxLayoutAlign='center center'>
+  <div fxFlex='80'>
+
+    <table mat-table class="lessons-table mat-elevation-z8" [dataSource]="examinationDates" style="width: 100%;">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <mat-header-cell *matHeaderCellDef>Year</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.year}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="mark">
+      <mat-header-cell *matHeaderCellDef>Mark</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.mark}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    </table>
+
+  </div>
+</div> -->

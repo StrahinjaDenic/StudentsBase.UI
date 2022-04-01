@@ -1,0 +1,40 @@
+
+<mat-card>
+  <mat-card-title>{{data.id > 0 ? 'Edit data for a course!':'Create a course'}}</mat-card-title>
+  <form [formGroup]='coruseForm'>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutGap='15px' fxFlex='100'>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Code</mat-label>
+          <input matInput formControlName='code' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName='name' [required]='true'>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex='50' class="col-sm-4" appearance="standard">
+          <mat-label>Points</mat-label>
+          <input matInput formControlName='points' [required]='true' PinInput>
+          <mat-error>Field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <mat-form-field appearance="standard">
+          <mat-label>Professors</mat-label>
+          <mat-select formControlName="professorIds" multiple>
+            <mat-option *ngFor="let professor of professors" [value]="professor.id">{{professor.name}} {{professor.surname}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout='row' fxLayoutAlign='end' fxLayoutGap='15px'>
+      <button mat-raised-button color='warn' (click)='cancel()' type="button">Cancel</button>
+      <button mat-raised-button color='primary' type="submit" (debounceClick)='submit()' DebounceClick [debounceTime]='250'>Submit
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+
