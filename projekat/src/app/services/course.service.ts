@@ -23,8 +23,8 @@ export class CourseService {
     };
 
     //deleteCourse = (id: number) => this.http.delete<boolean>(this.baseUrl + `Course/Delete?courseId=` + `${id}`);
-    deleteCourse(id: number): Observable<boolean> {
-      return this.http.delete<boolean>(this.baseUrl + `Course/Delete?courseId=` + `${id}`);
+    deleteCourse(id: number): Observable<ValidationResponse> {
+      return this.http.delete<ValidationResponse>(this.baseUrl + `Course/Delete?courseId=` + `${id}`);
     }
 
    // updateCreateCourse = (course: Course) => this.http.post<ValidationResponse>(this.baseUrl, course);

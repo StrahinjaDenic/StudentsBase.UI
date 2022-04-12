@@ -23,9 +23,10 @@
       <div fxLayout="row">
         <mat-form-field appearance="standard">
           <mat-label>Professors</mat-label>
-          <mat-select formControlName="professorIds" multiple>
+          <mat-select formControlName="professorIds" multiple [required]='true'>
             <mat-option *ngFor="let professor of professors" [value]="professor.id">{{professor.name}} {{professor.surname}}</mat-option>
           </mat-select>
+          <mat-error>Field is required</mat-error>
         </mat-form-field>
       </div>
     </div>

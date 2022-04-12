@@ -24,8 +24,8 @@ export class ExamService {
     return this.http.get<Exam>(this.baseUrl + `Exam/Edit?id=` + `${id}`);
   }
 
-  deleteExam(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.baseUrl + `Exam/Delete?id=` + `${id}`);
+  deleteExam(id: number): Observable<ValidationResponse> {
+    return this.http.delete<ValidationResponse>(this.baseUrl + `Exam/Delete?id=` + `${id}`);
   }
 
   searchExams = (exam: Exam | null): Observable<Exam[]> => {

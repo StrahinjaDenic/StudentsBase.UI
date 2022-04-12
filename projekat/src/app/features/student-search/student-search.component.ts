@@ -1,3 +1,4 @@
+import { ValidationResponse } from './../models/validation-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StudentCreateOrEditComponent } from './../student-create-or-edit/student-create-or-edit.component';
 import { first, debounceTime } from 'rxjs/operators';
@@ -5,7 +6,6 @@ import { StudentService } from './../../services/student.service';
 import { Student } from './../models/student';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { StudentComponent } from '../student/student.component';
 
 @Component({
   selector: 'app-student-search',
@@ -16,14 +16,16 @@ export class StudentSearchComponent implements OnInit {
 
   students: Student[] = [];
 
-  displayedColumns = ["id", "index", "name", "surname", "dateOfEntry", "dateOfBirth", "placeOfBirth", "dateCreated", "dateModified", "actions"];
+  displayedColumns = ["id", "index", "name", "surname", "dateOfEntry", "dateOfBirth", "placeOfBirth", "gradeAverage", "actions"];
   totalElements: number = 0;
   showLoader: boolean = false;
 
   constructor(
     private studentService: StudentService,
     private matDialog: MatDialog,
-    private matSnack: MatSnackBar) { }
+    private matSnack: MatSnackBar) {
+      this.search(null);
+     }
 
   async ngOnInit() {
     this.studentService.getallStudents().pipe(first()).subscribe(result => {
@@ -52,12 +54,12 @@ export class StudentSearchComponent implements OnInit {
   }
 
   deleteItem(id: number) {
-    this.studentService.deleteStudent(id).pipe(first()).subscribe(x => {
-      if (x === true) {
-        this.matSnack.open("Succesfully deleted!", "Notification", { duration: 4000, panelClass: ['successSnack'] })
+    this.studentService.deleteStudent(id).pipe(first()).subscribe((x :ValidationResponse) => {
+      if (x.isSuccess) {
+        this.matSnack.open(x.message, undefined, { duration: 4000, panelClass: ['successSnack'] })
         this.search(null);
       } else {
-        this.matSnack.open("Error occured!", 'Error', { duration: 4000, panelClass: ['errorSnack'] })
+        this.matSnack.open(x.message ?? "Error occured!", undefined, { duration: 4000, panelClass: ['errorSnack'] })
       }
     });
   }

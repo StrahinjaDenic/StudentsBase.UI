@@ -1,3 +1,4 @@
+import { ValidationResponse } from './../models/validation-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseComponent } from './../course/course.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,7 +30,7 @@ export class CourseSearchComponent implements OnInit {
 
   //columnNames: string[];
   //baseColumNames: string[] = ['dateCreated', 'dateModified', 'actions'];
-  displayedColumns = ["id", "code", "name", "points", "dateCreated", "dateModified", "actions" ];
+  displayedColumns = ["id", "code", "name", "points", "actions" ];
   totalElements: number = 0;
   showLoader: boolean = false;
 
@@ -40,7 +41,7 @@ export class CourseSearchComponent implements OnInit {
     private matSnack: MatSnackBar) {
       //this.columnNames = this.displayedColumns.map(x => x.key);
       //this.columnNames = this.columnNames.concat(this.baseColumNames);
-      //this.search(null);
+      this.search(null);
     }
 
   ngOnInit(): void {
@@ -70,14 +71,14 @@ export class CourseSearchComponent implements OnInit {
   }
 
   deleteItem(id: number) {
-    this.courseService.deleteCourse(id).pipe(first()).subscribe(x => {
-      if (x === true) {
-        this.matSnack.open("Succesfully deleted!","Notification", {duration: 4000, panelClass: ['successSnack'] })
+    this.courseService.deleteCourse(id).pipe(first()).subscribe((x: ValidationResponse) => {
+      if (x.isSuccess) {
+        this.matSnack.open(x.message, undefined, {duration: 4000, panelClass: ['successSnack'] });
         this.search(null);
       }
       else {
-        this.matSnack.open("Error occured!", 'Error', {duration: 4000, panelClass: ['errorSnack'] })
+        this.matSnack.open(x.message ?? "Error occured!", undefined, {duration: 4000, panelClass: ['errorSnack'] });
       }
-    });
+    })
   }
 }

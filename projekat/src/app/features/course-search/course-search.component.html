@@ -24,16 +24,6 @@
                   <th mat-header-cell *matHeaderCellDef>Points</th>
                   <td mat-cell class="duration-cell" *matCellDef="let element">{{element.points}}</td>
                 </ng-container>
-                <ng-container matColumnDef="dateCreated">
-                  <th mat-header-cell *matHeaderCellDef> Date created </th>
-                  <td mat-cell *matCellDef="let element"> {{element.dateCreated | date: 'dd.MM.yyy hh:mm:ss'}}
-                  </td>
-                </ng-container>
-               <ng-container matColumnDef="dateModified">
-                  <th mat-header-cell *matHeaderCellDef> Date modified </th>
-                  <td mat-cell *matCellDef="let element"> {{element.dateModified | date: 'dd.MM.yyy hh:mm:ss'}}
-                  </td>
-                </ng-container>
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef> Actions </th>
                   <td mat-cell *matCellDef="let element">

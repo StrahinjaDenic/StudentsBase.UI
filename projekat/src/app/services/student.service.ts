@@ -24,8 +24,8 @@ export class StudentService {
     return this.http.get<Student>(this.baseUrl + `Student/Edit?studentId=` + `${id}`);
   }
 
-  deleteStudent(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.baseUrl + `Student/Delete?studentId=` + `${id}`);
+  deleteStudent(id: number): Observable<ValidationResponse> {
+    return this.http.delete<ValidationResponse>(this.baseUrl + `Student/Delete?studentId=` + `${id}`);
   }
 
   searchStudent = (student: Student | null): Observable<Student[]> => {

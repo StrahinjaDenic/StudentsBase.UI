@@ -1,3 +1,4 @@
+import { ValidationResponse } from './../models/validation-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first, debounceTime } from 'rxjs/operators';
 import { ExamService } from './../../services/exam.service';
@@ -15,14 +16,16 @@ export class ExamSearchComponent implements OnInit {
 
   exams: Exam[] = [];
 
-  displayedColumns = ["id", "index", "courseName", "year", "mark", "examDate", "grade", "points", "dateCreated", "dateModified", "actions"];
+  displayedColumns = ["id", "index", "courseName", "year", "mark", "examDate", "grade", "points", "actions"];
   totalElements: number = 0;
   showLoader: boolean = false;
 
   constructor(
     private examService: ExamService,
     private matDialog: MatDialog,
-    private matSnack: MatSnackBar) { }
+    private matSnack: MatSnackBar) {
+      this.search(null);
+     }
 
   ngOnInit(): void {
     this.examService.getallExams().pipe(first()).subscribe(result => {
@@ -53,13 +56,13 @@ export class ExamSearchComponent implements OnInit {
   }
 
   deleteItem(id: number) {
-    this.examService.deleteExam(id).pipe(first()).subscribe(x => {
-      if (x == true) {
-        this.matSnack.open("Succesfully deleted!", "Notification", {duration: 4000, panelClass: ['successSnack']})
-        //this.search(null);
+    this.examService.deleteExam(id).pipe(first()).subscribe((x : ValidationResponse) => {
+      if (x.isSuccess) {
+        this.matSnack.open(x.message, undefined, {duration: 4000, panelClass: ['successSnack']})
+        this.search(null);
       }
       else {
-        this.matSnack.open("Error occured!", 'Error', { duration: 4000, panelClass: ['errorSnack'] })
+        this.matSnack.open( x.message ?? "Error occured!", undefined, { duration: 4000, panelClass: ['errorSnack'] })
       }
     });
   }

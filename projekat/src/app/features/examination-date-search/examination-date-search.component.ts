@@ -1,3 +1,4 @@
+import { ValidationResponse } from './../models/validation-response';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, first } from 'rxjs/operators';
@@ -22,7 +23,7 @@ export class ExaminationDateSearchComponent implements OnInit {
 
   dataSource = new MatTableDataSource(this.examinationDates);
 
-  displayedColumns = ["id", "year", "mark", "name", "dateCreated", "dateModified", "actions"];
+  displayedColumns = ["id", "year", "mark", "name", "actions"];
   totalElements: number = 0;
   showLoader: boolean = false;
 
@@ -61,13 +62,13 @@ export class ExaminationDateSearchComponent implements OnInit {
   }
 
   deleteItem(id: number) {
-    this.eDateService.deleteExaminationDate(id).pipe(first()).subscribe(x => {
-      if (x === true) {
-        this.matSnack.open("Succesfully deleted!","Notification", {duration: 4000, panelClass: ['successSnack'] })
+    this.eDateService.deleteExaminationDate(id).pipe(first()).subscribe((x : ValidationResponse) => {
+      if (x.isSuccess) {
+        this.matSnack.open(x.message, undefined, {duration: 4000, panelClass: ['successSnack'] })
         this.search(null);
       }
       else {
-        this.matSnack.open("Error occured!", 'Error', {duration: 4000, panelClass: ['errorSnack'] })
+        this.matSnack.open(x.message ?? "Error occured!", undefined, {duration: 4000, panelClass: ['errorSnack'] })
       }
     });
   }

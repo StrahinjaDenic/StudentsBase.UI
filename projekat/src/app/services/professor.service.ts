@@ -22,8 +22,8 @@ export class ProfessorService {
     return this.http.get<Professor[]>(fullRute);
   };
 
-  deleteProfessor(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.baseUrl + `Professor/Delete?professorId=` + `${id}`);
+  deleteProfessor(id: number): Observable<ValidationResponse> {
+    return this.http.delete<ValidationResponse>(this.baseUrl + `Professor/Delete?professorId=` + `${id}`);
   }
 
   //updateCreateProfessor = (professor: Professor) => this.http.post<ValidationResponse>(this.baseUrl, professor);

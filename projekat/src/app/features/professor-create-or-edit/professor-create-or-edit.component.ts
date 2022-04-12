@@ -25,7 +25,7 @@ export class ProfessorCreateOrEditComponent implements OnInit {
     private fb: FormBuilder,
     private matSnack: MatSnackBar,
     @Optional() public dialogRef: MatDialogRef<ProfessorCreateOrEditComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: { id: number }) { // Ako želite da delite podatke sa svojim dijalogom, možete koristiti opciju podataka da biste prosledili informacije komponenti dijaloga. Da biste pristupili podacima u komponenti dijaloga, morate da koristite token za ubrizgavanje MAT_DIALOG_DATA (to je ova linija koda)
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: { id: number }) { // Ako želite da podatke sa svojim dijalogom, možete koristiti opciju podataka da biste prosledili informacije komponenti dijaloga. Da biste pristupili podacima u komponenti dijaloga, morate da koristite token za ubrizgavanje MAT_DIALOG_DATA (to je ova linija koda)
     this.professorForm = this.fb.group({
       "id": 0,
       "name": [null, Validators.required],

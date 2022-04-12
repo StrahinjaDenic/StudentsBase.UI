@@ -17,14 +17,16 @@ export class ProfessorSearchComponent implements OnInit {
 
   professors: Professor[] = [];
 
-  displayedColumns = ["id", "name", "surname", "dateCreated", "dateModified", "actions"];
+  displayedColumns = ["id", "name", "surname", "actions"];
   totalElements: number = 0;
   showLoader: boolean = false;
 
   constructor(
     private professorService: ProfessorService,
     private matDialog: MatDialog,
-    private matSnack: MatSnackBar) { }
+    private matSnack: MatSnackBar) {
+      this.search(null);
+     }
 
   ngOnInit(): void {
     this.professorService.getallProfessors().pipe(first()).subscribe(result => {
@@ -55,12 +57,12 @@ export class ProfessorSearchComponent implements OnInit {
   }
 
   deleteItem(id: number) {
-    this.professorService.deleteProfessor(id).pipe(first()).subscribe(x => {
-      if (x === true) {
-        this.matSnack.open("Succesfully deleted!", "Notification", { duration: 4000, panelClass: ['successSnack'] })
+    this.professorService.deleteProfessor(id).pipe(first()).subscribe((x : ValidationResponse) => {
+      if (x.isSuccess) {
+        this.matSnack.open(x.message, undefined, { duration: 4000, panelClass: ['successSnack'] })
         this.search(null);
       } else {
-        this.matSnack.open("Error occured!", 'Error', { duration: 4000, panelClass: ['errorSnack'] })
+        this.matSnack.open(x.message ?? "Error occured!", undefined, { duration: 4000, panelClass: ['errorSnack'] })
       }
     });
   }

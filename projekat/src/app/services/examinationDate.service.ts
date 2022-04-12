@@ -23,8 +23,8 @@ export class ExaminationDateService {
   }
 
   //deleteExaminationDate = (id: number) => this.http.delete<boolean>(this.baseUrl + `${id}`);
-  deleteExaminationDate(id: number): Observable<boolean>{
-    return this.http.delete<boolean>(this.baseUrl + `ExaminationDate/Delete?examinationDateId=` + `${id}`);
+  deleteExaminationDate(id: number): Observable<ValidationResponse>{
+    return this.http.delete<ValidationResponse>(this.baseUrl + `ExaminationDate/Delete?examinationDateId=` + `${id}`);
   }
 
   updateCreateExaminationDate = (examinationDate: ExaminationDate) => this.http.post<ValidationResponse>(this.baseUrl + `ExaminationDate/Save`, examinationDate);
